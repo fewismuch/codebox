@@ -1,0 +1,146 @@
+.rainetian-codebox {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+
+  .sp-wrapper {
+    height: 100%;
+
+    .sp-layout {
+      height: calc(100% - 40px);
+      border-radius: 0;
+    }
+  }
+
+  .sandpack-file-explorer {
+    height: 100%;
+  }
+
+  .sp-tabs .sp-tabs-scrollable-container {
+    .sp-tab-button:only-child {
+      padding-right: 32px;
+      padding-left: 20px;
+    }
+
+    .sp-tab-button:not(:only-child) {
+      padding-left: 20px;
+    }
+  }
+
+  .sp-tabs .sp-tab-button[data-active='true'] {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: calc(100% - 12px);
+      height: 0;
+      background-color: transparent;
+      content: '';
+      border-bottom: 1px solid var(--sp-syntax-color-keyword);
+    }
+  }
+
+  /* 行号和折叠按钮倒序 */
+
+  .cm-gutters {
+    flex-direction: row-reverse;
+  }
+
+  .cm-gutters + .cm-content {
+    padding: 0 var(--sp-space-4) 0 0;
+  }
+
+  .cm-gutter.cm-foldGutter {
+    padding: 0 var(--sp-space-1) 0 var(--sp-space-1);
+  }
+
+  .cm-gutter.cm-lineNumbers .cm-gutterElement {
+    font-size: 12px;
+  }
+
+  .cm-gutter.cm-foldGutter .cm-gutterElement {
+    display: flex;
+    align-items: center;
+  }
+
+  .cm-gutter.cm-foldGutter span {
+    display: flex;
+    height: 11px;
+    font-size: 12px;
+    color: var(--sp-colors-clickable);
+    border: 1px solid var(--sp-colors-disabled);
+    opacity: 0;
+    align-items: center;
+  }
+
+  .cm-gutter.cm-foldGutter span[title='Unfold line'] {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+  .cm-gutters:hover .cm-foldGutter span {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+  .sp-editor.sp-stack {
+    height: 100%;
+  }
+
+  .sp-preview.sp-stack {
+    height: 100%;
+  }
+}
+
+// header-----------
+.codebox__header {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  padding: var(--sp-space-3);
+  color: var(--sp-colors-clickable);
+  background-color: var(--sp-colors-surface1, #fff);
+  align-items: center;
+  justify-content: space-between;
+
+  &-left {
+    display: flex;
+    align-items: center;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    & > span,
+    a {
+      font-size: 16px;
+      color: var(--sp-colors-clickable);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--sp-colors-hover);
+      }
+    }
+  }
+
+  &__logo {
+    display: flex;
+  }
+
+  &__template {
+    margin-left: 12px;
+
+    & > select {
+      padding: 0 4px;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--sp-colors-surface2);
+      outline: none;
+    }
+  }
+}
