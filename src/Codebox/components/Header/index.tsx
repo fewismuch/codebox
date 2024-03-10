@@ -1,7 +1,7 @@
 import { useSandpack } from '@codesandbox/sandpack-react'
 import { ITemplates } from 'file-explorer/Codebox/types'
 import React, { useMemo, useState } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 import { Icons } from '../Icons'
 
