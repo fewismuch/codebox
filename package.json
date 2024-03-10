@@ -1,6 +1,6 @@
 {
   "name": "@rainetian/codebox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "codebox",
   "license": "MIT",
   "module": "dist/index.js",
