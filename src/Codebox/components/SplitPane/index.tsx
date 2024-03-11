@@ -1,6 +1,8 @@
 import { Allotment } from 'allotment'
 import React, { useRef } from 'react'
 
+import 'allotment/dist/style.css'
+
 interface ISplitPane {
   children?: React.ReactNode[]
 }

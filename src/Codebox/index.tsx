@@ -1,7 +1,6 @@
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete'
 import { foldGutter } from '@codemirror/language'
 import { SandpackCodeEditor, SandpackLayout, SandpackProvider } from '@codesandbox/sandpack-react'
-import { dracula } from '@codesandbox/sandpack-themes'
 import SandpackFileExplorer from '@rainetian/sandpack-file-explorer'
 import React from 'react'
 
@@ -13,13 +12,13 @@ import { ICodebox } from './types'
 import './index.less'
 
 export const Codebox: React.FC<ICodebox> = (props) => {
-  const { files, template } = props
+  const { files, template, theme } = props
 
   const codemirrorInstance = React.useRef(null)
 
   return (
     <div className='rainetian-codebox'>
-      <SandpackProvider theme={dracula} template={template} files={files}>
+      <SandpackProvider theme={theme} template={template} files={files}>
         <Header />
         <SandpackLayout>
           <SplitPane>
