@@ -13,10 +13,10 @@ export const SplitPane: React.FC<ISplitPane> = (props) => {
 
   return (
     <Allotment ref={ref} defaultSizes={defaultSizes} vertical={false}>
-      <Allotment.Pane minSize={200} preferredSize={250}>
+      <Allotment.Pane snap minSize={200}>
         {props.children?.[0]}
       </Allotment.Pane>
-      <Allotment.Pane snap minSize={0}>
+      <Allotment.Pane snap minSize={100}>
         {props.children?.[1]}
       </Allotment.Pane>
 

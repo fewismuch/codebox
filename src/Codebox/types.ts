@@ -1,13 +1,16 @@
-// import type { SANDBOX_TEMPLATES } from '@codesandbox/sandpack-react'
-// type templateType = typeof SANDBOX_TEMPLATES
+import { SandpackFiles, SandpackThemeProp } from '@codesandbox/sandpack-react'
+import React from 'react'
 
 export type ITemplates = 'vue' | 'react'
 
 export interface ICodebox {
-  files?: Record<string, { code: string }>
-  // template?: keyof templateType
+  files?: SandpackFiles
   template: ITemplates
-
-  // style?: React.CSSProperties
-  // readOnly?: boolean
+  theme?: SandpackThemeProp
+  style?: React.CSSProperties
+  preview?: boolean
+  customPreview?: boolean
+  options?: {
+    showLineNumbers?: boolean
+  }
 }

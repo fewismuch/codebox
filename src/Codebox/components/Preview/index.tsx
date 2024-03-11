@@ -4,14 +4,14 @@ import React, { useEffect, useRef } from 'react'
 
 interface IPreview {
   template: string
+  entryFile: string
+  rootId: string
 }
 
 export const Preview: React.FC<IPreview> = (props) => {
-  const { template } = props
+  const { template, entryFile, rootId } = props
   const { sandpack } = useSandpack()
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const rootId = template === 'vue' ? 'app' : 'root'
-  const entryFile = template === 'vue' ? '/src/main.js' : '/index.js'
 
   const compile = async () => {
     const iframeDoc = iframeRef?.current?.contentDocument as Document
@@ -19,6 +19,7 @@ export const Preview: React.FC<IPreview> = (props) => {
     iframeDoc.body.querySelector('#app')?.remove()
     const rootElement = document.createElement('div')
     rootElement.id = `${rootId}`
+    rootElement.innerHTML = 'Loading...'
     iframeDoc.body.appendChild(rootElement)
 
     // @ts-ignore
@@ -33,7 +34,7 @@ export const Preview: React.FC<IPreview> = (props) => {
     scriptElement.id = 'esbuild-wasm-compiler'
     scriptElement.type = 'module'
     scriptElement.innerHTML = `
-    import {Compiler} from 'https://pdn.zijieapi.com/esm/bv/@rainetian/esbuild-wasm-compiler'
+    import {Compiler} from 'https://pdn.zijieapi.com/esm/bv/@rainetian/esbuild-wasm-compiler@0.0.17'
 
     let files = ${JSON.stringify(sandpack.files).replace(/<\/script>/g, '</script>')}
     
@@ -51,6 +52,9 @@ export const Preview: React.FC<IPreview> = (props) => {
             }
             return content.code
           },
+        },{
+          wasmURL:'https://unpkg.com/esbuild-wasm@0.20.0/esbuild.wasm',
+          esmServiceUrl:'https://pdn.zijieapi.com/esm/bv'
         }
       )
       
@@ -91,7 +95,7 @@ export const Preview: React.FC<IPreview> = (props) => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <iframe
-        style={{ width: '100%', height: '100%', border: 'none' }}
+        style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }}
         ref={iframeRef}
         className='codebox__preview__iframe'
         sandbox='allow-popups-to-escape-sandbox allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation allow-modals allow-same-origin'

@@ -1,4 +1,3 @@
 interface Window {
-    codeboxFiles?: any
-  }
-  
+  codeboxFiles?: any
+}

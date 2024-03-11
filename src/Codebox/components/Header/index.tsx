@@ -16,7 +16,7 @@ export const Header: React.FC<IHeader> = () => {
   const [copyed, setCopyed] = useState(false)
 
   const filesCode = useMemo(() => {
-    return `const files = ${JSON.stringify(sandpack.files, null, 2)}`
+    return `window.codeboxFiles = ${JSON.stringify(sandpack.files, null, 2).replace(/<\/script>/g, '</script>')}`
   }, [sandpack.files])
 
   const copyCode = () => {

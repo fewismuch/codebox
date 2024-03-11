@@ -30,6 +30,8 @@ interface IRun {
   files?: any
   platform?: string
   theme?: string
+  preview?: boolean
+  customPreview?: boolean
 }
 
 const ThemeMap: Record<string, SandpackThemeProp> = {
@@ -54,11 +56,10 @@ const ThemeMap: Record<string, SandpackThemeProp> = {
 }
 
 // 处理平台样式
-const handlePlatform = async (platform?: string) => {
+const handlePlatform = async (rootId: string, platform?: string) => {
   if (platform === 'juejin') {
-    document.body.style.padding = '0'
-    document.body.style.margin = '0'
-    document.querySelector('#root')?.setAttribute('style', 'height: 100vh; width: 100vw;')
+    document.body.setAttribute('style', 'padding: 0; margin: 0;')
+    document.querySelector(`#${rootId}`)?.setAttribute('style', 'height: 100vh; width: 100vw;')
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(true)
@@ -68,23 +69,38 @@ const handlePlatform = async (platform?: string) => {
 }
 
 export const run = async (params: IRun) => {
-  if (!params?.template) {
-    throw new Error('run() params must have template, template: vue | react')
-    return false
-  }
-  const { rootId = 'root', template, platform, theme, files } = params || {}
+  const {
+    rootId = 'root',
+    template,
+    platform,
+    theme,
+    files,
+    preview = true,
+    customPreview = false,
+  } = params || {}
 
-  await handlePlatform(platform)
+  if (!params?.template) {
+    throw new Error('Codebox.run(params) params must have template, template: vue | react')
+  }
+
+  const rootElement = document.getElementById(rootId)
+  if (!rootElement) {
+    throw new Error(`${rootId} is not found in the document.`)
+  }
+
+  await handlePlatform(rootId, platform)
 
   const customFiles = files || window.codeboxFiles || templateCodes[template]
 
-  ReactDOM.createRoot(document.getElementById(rootId)!).render(
+  ReactDOM.createRoot(rootElement!).render(
     <React.StrictMode>
       <div style={{ height: '100%', width: '100%' }}>
         <Codebox
           template={template}
           files={customFiles}
           theme={theme ? ThemeMap[theme] : undefined}
+          preview={preview}
+          customPreview={customPreview}
         />
       </div>
     </React.StrictMode>
