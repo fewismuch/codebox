@@ -60,13 +60,14 @@ export const Codebox: React.FC<ICodebox> = (props) => {
     preview = true,
     customPreview = false,
     options = { showLineNumbers: true },
+    esmServiceUrl,
   } = props
   const [filesProcessed, setFilesProcessed] = useState(false)
 
   const codemirrorInstance = React.useRef(null)
 
   const rootId = template === 'vue' ? 'app' : 'root'
-  const entryFile = template === 'vue' ? '/src/main.js' : '/index.js'
+  const entryFile = template === 'vue' ? '/src/main.js' : '/index.jsx'
 
   return (
     <div className='rainetian-codebox'>
@@ -95,7 +96,12 @@ export const Codebox: React.FC<ICodebox> = (props) => {
                 />
                 {preview ? (
                   customPreview ? (
-                    <Preview template={template} rootId={rootId} entryFile={entryFile} />
+                    <Preview
+                      template={template}
+                      rootId={rootId}
+                      entryFile={entryFile}
+                      esmServiceUrl={esmServiceUrl}
+                    />
                   ) : (
                     <SandpackPreview />
                   )

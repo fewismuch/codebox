@@ -13,4 +13,5 @@ export interface ICodebox {
   options?: {
     showLineNumbers?: boolean
   }
+  esmServiceUrl?: string
 }

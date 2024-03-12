@@ -6,10 +6,11 @@ interface IPreview {
   template: string
   entryFile: string
   rootId: string
+  esmServiceUrl?: string
 }
 
 export const Preview: React.FC<IPreview> = (props) => {
-  const { template, entryFile, rootId } = props
+  const { template, entryFile, rootId, esmServiceUrl } = props
   const { sandpack } = useSandpack()
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
@@ -34,7 +35,7 @@ export const Preview: React.FC<IPreview> = (props) => {
     scriptElement.id = 'esbuild-wasm-compiler'
     scriptElement.type = 'module'
     scriptElement.innerHTML = `
-    import {Compiler} from 'https://pdn.zijieapi.com/esm/bv/@rainetian/esbuild-wasm-compiler@0.0.17'
+    import {Compiler} from 'https://pdn.zijieapi.com/esm/bv/@rainetian/esbuild-wasm-compiler@0.0.18'
 
     let files = ${JSON.stringify(sandpack.files).replace(/<\/script>/g, '</script>')}
     
@@ -54,7 +55,7 @@ export const Preview: React.FC<IPreview> = (props) => {
           },
         },{
           wasmURL:'https://unpkg.com/esbuild-wasm@0.20.0/esbuild.wasm',
-          esmServiceUrl:'https://pdn.zijieapi.com/esm/bv'
+          ${esmServiceUrl ? `esmServiceUrl: '${esmServiceUrl}',` : ''}
         }
       )
       
