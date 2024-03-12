@@ -32,6 +32,7 @@ interface IRun {
   theme?: string
   preview?: boolean
   customPreview?: boolean
+  esmServiceUrl?: string
 }
 
 const ThemeMap: Record<string, SandpackThemeProp> = {
@@ -76,7 +77,8 @@ export const run = async (params: IRun) => {
     theme,
     files,
     preview = true,
-    customPreview = false,
+    customPreview = true,
+    esmServiceUrl,
   } = params || {}
 
   if (!params?.template) {
@@ -101,6 +103,7 @@ export const run = async (params: IRun) => {
           theme={theme ? ThemeMap[theme] : undefined}
           preview={preview}
           customPreview={customPreview}
+          esmServiceUrl={esmServiceUrl}
         />
       </div>
     </React.StrictMode>

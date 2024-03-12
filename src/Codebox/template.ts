@@ -20,10 +20,10 @@ export const templateCodes = {
     '/styles.css': {
       code: 'body {\n  font-family: sans-serif;\n  -webkit-font-smoothing: auto;\n  -moz-font-smoothing: auto;\n  -moz-osx-font-smoothing: grayscale;\n  font-smoothing: auto;\n  text-rendering: optimizeLegibility;\n  font-smooth: always;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-touch-callout: none;\n}\n\nh1 {\n  font-size: 1.5rem;\n}',
     },
-    '/App.js': {
+    '/App.jsx': {
       code: 'import React from "react";\n\nexport default function App() {\n  return <h1>Hello react</h1>\n}\n',
     },
-    '/index.js': {
+    '/index.jsx': {
       code: 'import React, { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport "./styles.css";\n\nimport App from "./App";\n\nconst root = createRoot(document.getElementById("root"));\nroot.render(\n  <StrictMode>\n    <App />\n  </StrictMode>\n);',
     },
     '/public/index.html': {

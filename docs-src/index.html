@@ -16,15 +16,14 @@
     template: 'react',
     rootId: 'app',
     theme: 'atomDark',
-    customPreview:true
   })
 </script>
 <script>
   window.codeboxFiles = {
-    '/App.js': {
+    '/App.jsx': {
       code: 'import React from "react";\n\nexport default function App() {\n  return <h1>Hello 1react</h1>\n}\n',
     },
-    '/index.js': {
+    '/index.jsx': {
       code: 'import React, { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\n\nimport App from "./App";\n\nconst root = createRoot(document.getElementById("root"));\nroot.render(\n  <StrictMode>\n    <App />\n  </StrictMode>\n);',
     },
     '/public/index.html': {
