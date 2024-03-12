@@ -1,6 +1,6 @@
 {
   "name": "@rainetian/codebox",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "codebox",
   "license": "MIT",
   "module": "dist/esm/index.js",
@@ -50,7 +50,7 @@
     "@codesandbox/sandpack-react": "^2.13.5",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@rainetian/esbuild-wasm-compiler": "^0.0.18",
-    "@rainetian/sandpack-file-explorer": "^0.0.6",
+    "@rainetian/sandpack-file-explorer": "^0.0.7",
     "ahooks": "^3.7.10",
     "allotment": "^1.20.0",
     "react-copy-to-clipboard": "^5.1.0"
