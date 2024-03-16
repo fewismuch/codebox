@@ -7,8 +7,11 @@ export default defineConfig({
   base: isDev ? '/' : '/codebox/',
   publicPath: '/codebox/',
   exportStatic: {},
+  // apiParser: {},
   resolve: {
     docDirs: ['docs-src'],
+    // API 解析将从这里开始
+    // entryFile: './src/index.ts',
   },
   outputPath: 'docs',
   themeConfig: {
