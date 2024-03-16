@@ -33,4 +33,15 @@ export const templateCodes = {
       code: '{\n  "dependencies": {\n    "react": "^18.2.0",\n    "react-dom": "^18.2.0",\n    "react-scripts": "^5.0.0"\n  },\n  "devDependencies": {}\n}',
     },
   },
+  static: {
+    '/index.css': {
+      code: '.title {color: #1677ff}',
+    },
+    '/index.js': {
+      code: 'console.log("hello world")',
+    },
+    '/index.html': {
+      code: '<!DOCTYPE html>\n<html lang="zh">\n <head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Document</title>\n  <link rel="stylesheet" href="./index.css">\n  <script src="./index.js"></script>\n </head>\n <body>\n  <div class="title">Hello world</div>\n </body>\n</html>',
+    },
+  },
 }

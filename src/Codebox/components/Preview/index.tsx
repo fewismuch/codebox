@@ -2,6 +2,8 @@ import { useSandpack } from '@codesandbox/sandpack-react'
 import { useThrottleEffect } from 'ahooks'
 import React, { useEffect, useRef } from 'react'
 
+import { transformHTML } from './utils'
+
 interface IPreview {
   template: string
   entryFile: string
@@ -18,10 +20,17 @@ export const Preview: React.FC<IPreview> = (props) => {
     const iframeDoc = iframeRef?.current?.contentDocument as Document
     iframeDoc.body.querySelector('#root')?.remove()
     iframeDoc.body.querySelector('#app')?.remove()
-    const rootElement = document.createElement('div')
-    rootElement.id = `${rootId}`
-    rootElement.innerHTML = 'Loading...'
-    iframeDoc.body.appendChild(rootElement)
+
+    let indexHtml =
+      sandpack.files['/public/index.html']?.code || `<div id="${rootId}">Loading...</div>`
+    if (template === 'static') {
+      indexHtml = sandpack.files['/index.html']?.code
+      indexHtml = transformHTML(indexHtml, sandpack.files)
+    }
+
+    iframeDoc.open()
+    iframeDoc.write(indexHtml)
+    iframeDoc.close()
 
     // @ts-ignore
     const contentWindow: any = iframeRef?.current?.contentWindow
@@ -30,6 +39,7 @@ export const Preview: React.FC<IPreview> = (props) => {
   }
 
   useEffect(() => {
+    if (template === 'static') return
     const iframeDoc = iframeRef?.current?.contentDocument as Document
     const scriptElement = document.createElement('script')
     scriptElement.id = 'esbuild-wasm-compiler'
@@ -64,7 +74,9 @@ export const Preview: React.FC<IPreview> = (props) => {
         // console.log(code)
         // 编译报错信息
         if (typeof code !== 'string' && code.error) {
-          document.querySelector('#${rootId}').innerHTML = code.message
+          const rootEle = document.querySelector('#${rootId}')
+          if(rootEle) rootEle.innerHTML = code.message
+          if(!rootEle) document.body.innerHTML = code.message
           return
         }
         

@@ -9,11 +9,12 @@ import {
   useSandpack,
 } from '@codesandbox/sandpack-react'
 import SandpackFileExplorer from '@rainetian/sandpack-file-explorer'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Header } from './components/Header'
 import { Preview } from './components/Preview'
 import { SplitPane } from './components/SplitPane'
+import { templateCodes } from './template'
 import { ICodebox } from './types'
 
 import './index.less'
@@ -63,16 +64,17 @@ export const Codebox: React.FC<ICodebox> = (props) => {
     esmServiceUrl,
   } = props
   const [filesProcessed, setFilesProcessed] = useState(false)
-
-  const codemirrorInstance = React.useRef(null)
+  const codemirrorInstance = useRef(null)
+  const codeFiles = files || templateCodes[template]
 
   const rootId = template === 'vue' ? 'app' : 'root'
-  const entryFile = template === 'vue' ? '/src/main.js' : '/index.jsx'
+  let entryFile = template === 'vue' ? '/src/main.js' : '/index.jsx'
+  if (template === 'static') entryFile = '/index.html'
 
   return (
     <div className='rainetian-codebox'>
-      <SandpackProvider theme={theme} template={template} files={files}>
-        <FilesWorker files={files} entryFile={entryFile} onOk={() => setFilesProcessed(true)} />
+      <SandpackProvider theme={theme} template={template} files={codeFiles}>
+        <FilesWorker files={codeFiles} entryFile={entryFile} onOk={() => setFilesProcessed(true)} />
         {!filesProcessed ? null : (
           <>
             <Header />
